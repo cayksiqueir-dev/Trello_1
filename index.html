@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TrelloZinho</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- Topo da página -->
+  <header class="topbar">
+    <h1 class="topbar-title">📋 TrelloZinho</h1>
+  </header>
+
+  <!-- Board com as colunas do quadro, organizado em grid -->
+  <main class="board">
+
+    <!-- Coluna: A Fazer -->
+    <section class="column" id="column-a-fazer">
+      <div class="column-header">
+        <h2 class="column-title">A Fazer</h2>
+        <span class="column-count">3</span>
+      </div>
+
+      <!-- Cada card usa data-title e data-desc para preencher o modal -->
+      <div class="card" data-title="Estudar HTML" data-desc="Rever tags semânticas e estrutura básica de uma página.">
+        <span class="card-label label-azul">Estudo</span>
+        <p class="card-text">Estudar HTML</p>
+      </div>
+      <div class="card" data-title="Criar wireframe" data-desc="Desenhar o protótipo das telas antes de codar.">
+        <span class="card-label label-roxo">Design</span>
+        <p class="card-text">Criar wireframe</p>
+      </div>
+      <div class="card" data-title="Levantar requisitos" data-desc="Listar o que o projeto precisa ter na etapa 1.">
+        <span class="card-label label-laranja">Planejamento</span>
+        <p class="card-text">Levantar requisitos</p>
+      </div>
+
+      <button class="add-card-btn">+ Adicionar cartão</button>
+    </section>
+
+    <!-- Coluna: Fazendo -->
+    <section class="column" id="column-fazendo">
+      <div class="column-header">
+        <h2 class="column-title">Fazendo</h2>
+        <span class="column-count">2</span>
+      </div>
+
+      <div class="card" data-title="Estruturar HTML do board" data-desc="Montar as colunas e os cartões da página principal.">
+        <span class="card-label label-verde">Dev</span>
+        <p class="card-text">Estruturar HTML do board</p>
+      </div>
+      <div class="card" data-title="Estilizar com CSS" data-desc="Aplicar cores, espaçamentos e deixar parecido com o Trello.">
+        <span class="card-label label-roxo">Design</span>
+        <p class="card-text">Estilizar com CSS</p>
+      </div>
+
+      <button class="add-card-btn">+ Adicionar cartão</button>
+    </section>
+
+    <!-- Coluna: Feito -->
+    <section class="column" id="column-feito">
+      <div class="column-header">
+        <h2 class="column-title">Feito</h2>
+        <span class="column-count">1</span>
+      </div>
+
+      <div class="card" data-title="Escolher o tema do projeto" data-desc="Definido: um clone simples do Trello.">
+        <span class="card-label label-laranja">Planejamento</span>
+        <p class="card-text">Escolher o tema do projeto</p>
+      </div>
+
+      <button class="add-card-btn">+ Adicionar cartão</button>
+    </section>
+
+  </main>
+
+  <!-- Modal que abre ao clicar em um card -->
+  <div class="card-modal-overlay" id="card-modal-overlay">
+    <div class="card-modal">
+      <button class="card-modal-close-btn" id="card-modal-close-btn">&times;</button>
+      <h2 class="card-modal-title" id="card-modal-title">Título do cartão</h2>
+      <p class="card-modal-description" id="card-modal-description">Descrição do cartão.</p>
+    </div>
+  </div>
+
+  <script src="js/script.js"></script>
+</body>
+</html>

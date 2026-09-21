@@ -1,0 +1,172 @@
+/* Reset básico */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Segoe UI', Arial, Helvetica, sans-serif;
+  background: linear-gradient(135deg, #0079bf, #026aa7);
+  color: #172b4d;
+  min-height: 100vh;
+}
+
+/* Cabeçalho do site */
+.topbar {
+  background-color: rgba(0, 0, 0, 0.15);
+  padding: 16px 24px;
+}
+
+.topbar-title {
+  color: #fff;
+  font-size: 22px;
+  letter-spacing: 0.5px;
+}
+
+/* Board: grid com uma coluna por lista */
+.board {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(260px, 1fr));
+  gap: 24px;
+  padding: 30px;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+/* Coluna do quadro (ex: A Fazer, Fazendo, Feito) */
+.column {
+  background-color: #ebecf0;
+  border-radius: 10px;
+  padding: 14px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.column-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 14px;
+  padding: 0 4px;
+}
+
+.column-title {
+  font-size: 16px;
+}
+
+/* Bolinha com a quantidade de cards da coluna (só decorativo) */
+.column-count {
+  background-color: #dfe1e6;
+  color: #5e6c84;
+  font-size: 12px;
+  font-weight: bold;
+  padding: 2px 9px;
+  border-radius: 999px;
+}
+
+/* Card individual dentro da coluna */
+.card {
+  background-color: #fff;
+  border-radius: 8px;
+  padding: 12px 14px;
+  margin-bottom: 12px;
+  border-left: 4px solid #0079bf;
+  box-shadow: 0 2px 4px rgba(9, 30, 66, 0.2);
+  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 12px rgba(9, 30, 66, 0.3);
+}
+
+.card-text {
+  font-size: 14px;
+  margin-top: 6px;
+}
+
+/* Etiqueta colorida no topo do card (decorativa) */
+.card-label {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: bold;
+  color: #fff;
+  padding: 2px 8px;
+  border-radius: 4px;
+}
+
+.label-azul { background-color: #0079bf; }
+.label-roxo { background-color: #6554c0; }
+.label-verde { background-color: #61bd4f; }
+.label-laranja { background-color: #ff9f1a; }
+
+/* Botão para adicionar novo cartão */
+.add-card-btn {
+  width: 100%;
+  background: none;
+  border: none;
+  text-align: left;
+  padding: 8px 6px;
+  color: #5e6c84;
+  cursor: pointer;
+  border-radius: 4px;
+  font-size: 13px;
+}
+
+.add-card-btn:hover {
+  background-color: #d9dbe0;
+}
+
+/* Modal do card */
+
+/* Fundo escuro que cobre a tela quando o modal está aberto */
+.card-modal-overlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6);
+  align-items: center;
+  justify-content: center;
+}
+
+/* Classe adicionada via JS para exibir o modal */
+.card-modal-overlay.active {
+  display: flex;
+}
+
+/* Caixa branca do modal */
+.card-modal {
+  background-color: #fff;
+  border-radius: 8px;
+  width: 90%;
+  max-width: 500px;
+  padding: 28px;
+  position: relative;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+}
+
+/* Botão "x" para fechar o modal */
+.card-modal-close-btn {
+  position: absolute;
+  top: 10px;
+  right: 14px;
+  border: none;
+  background: none;
+  font-size: 24px;
+  cursor: pointer;
+  color: #5e6c84;
+}
+
+.card-modal-title {
+  margin-bottom: 12px;
+  padding-right: 20px;
+}
+
+.card-modal-description {
+  color: #44546f;
+  line-height: 1.5;
+}
