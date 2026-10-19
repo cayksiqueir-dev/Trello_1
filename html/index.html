@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TrelloZinho</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body class="board-page">
+
+  <!-- Topo -->
+  <header class="topbar">
+    <h1 class="logo">📋 TrelloZinho</h1>
+
+    <input class="search-input" id="search-input" type="search" placeholder="Buscar cartões...">
+
+    <div class="user-menu">
+      <span class="avatar" id="user-avatar"></span>
+      <span class="user-name" id="user-name"></span>
+      <button class="btn btn-ghost" id="logout-btn" type="button">Sair</button>
+    </div>
+  </header>
+
+  <!-- Board -->
+  <main class="board">
+    <div class="columns" id="columns"></div>
+
+    <div class="add-column">
+      <button class="add-column-btn" id="add-column-btn" type="button">+ Adicionar outra lista</button>
+
+      <form class="add-column-form" id="add-column-form" hidden>
+        <input class="input" id="add-column-input" type="text" placeholder="Nome da lista" maxlength="50">
+        <div class="form-actions">
+          <button type="submit" class="btn btn-primary">Adicionar lista</button>
+          <button type="button" class="btn btn-ghost" id="add-column-cancel">Cancelar</button>
+        </div>
+      </form>
+    </div>
+  </main>
+
+  <!-- Modelo de lista -->
+  <template id="column-template">
+    <section class="column">
+      <header class="column-header">
+        <input class="column-title" type="text" maxlength="50" aria-label="Nome da lista">
+        <span class="column-count">0</span>
+        <button class="icon-btn column-delete" type="button" title="Excluir lista">🗑</button>
+      </header>
+
+      <div class="card-list"></div>
+
+      <form class="add-card-form" hidden>
+        <textarea class="input add-card-input" rows="2" maxlength="100" placeholder="Insira um título para este cartão..."></textarea>
+        <div class="form-actions">
+          <button type="submit" class="btn btn-primary">Adicionar cartão</button>
+          <button type="button" class="btn btn-ghost add-card-cancel">Cancelar</button>
+        </div>
+      </form>
+
+      <button class="add-card-btn" type="button">+ Adicionar um cartão</button>
+    </section>
+  </template>
+
+  <!-- Modelo de cartão -->
+  <template id="card-template">
+    <article class="card" draggable="true" tabindex="0">
+      <div class="card-labels"></div>
+      <p class="card-title"></p>
+      <div class="card-badges" title="Este cartão tem descrição">≡ Descrição</div>
+    </article>
+  </template>
+
+  <!-- Modal do cartão -->
+  <div class="modal-overlay" id="card-modal" hidden>
+    <form class="modal" id="card-form">
+      <button class="icon-btn modal-close" id="card-modal-close" type="button" title="Fechar">&times;</button>
+
+      <input class="modal-title-input" id="card-title" type="text" required maxlength="100" aria-label="Título do cartão">
+      <p class="modal-subtitle">na lista <strong id="card-column-name"></strong></p>
+
+      <h3 class="modal-section-title">Etiquetas</h3>
+      <div class="label-picker" id="label-picker"></div>
+
+      <h3 class="modal-section-title">Descrição</h3>
+      <textarea class="input" id="card-description" rows="5" placeholder="Adicione uma descrição mais detalhada..."></textarea>
+
+      <div class="modal-actions">
+        <button class="btn btn-danger" id="card-delete-btn" type="button">Excluir cartão</button>
+        <div class="form-actions">
+          <button class="btn btn-ghost" id="card-cancel-btn" type="button">Cancelar</button>
+          <button class="btn btn-primary" type="submit">Salvar</button>
+        </div>
+      </div>
+    </form>
+  </div>
+
+  <script src="../js/auth.js"></script>
+  <script src="../js/board.js"></script>
+</body>
+</html>
