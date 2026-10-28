@@ -54,14 +54,6 @@
 
       <div class="card-list"></div>
 
-      <form class="add-card-form" hidden>
-        <textarea class="input add-card-input" rows="2" maxlength="100" placeholder="Insira um título para este cartão..."></textarea>
-        <div class="form-actions">
-          <button type="submit" class="btn btn-primary">Adicionar cartão</button>
-          <button type="button" class="btn btn-ghost add-card-cancel">Cancelar</button>
-        </div>
-      </form>
-
       <button class="add-card-btn" type="button">+ Adicionar um cartão</button>
     </section>
   </template>
@@ -87,7 +79,7 @@
     <form class="modal" id="card-form">
       <button class="icon-btn modal-close" id="card-modal-close" type="button" title="Fechar">&times;</button>
 
-      <input class="modal-title-input" id="card-title" type="text" required maxlength="100" aria-label="Título do cartão">
+      <input class="modal-title-input" id="card-title" type="text" required maxlength="100" placeholder="Título do cartão" aria-label="Título do cartão">
       <p class="modal-subtitle">na lista <strong id="card-column-name"></strong></p>
 
       <h3 class="modal-section-title">Etiquetas</h3>
@@ -122,7 +114,7 @@
         <button class="btn btn-danger" id="card-delete-btn" type="button">Excluir cartão</button>
         <div class="form-actions">
           <button class="btn btn-ghost" id="card-cancel-btn" type="button">Cancelar</button>
-          <button class="btn btn-primary" type="submit">Salvar</button>
+          <button class="btn btn-primary" id="card-save-btn" type="submit">Salvar</button>
         </div>
       </div>
     </form>

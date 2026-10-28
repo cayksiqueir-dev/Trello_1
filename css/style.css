@@ -382,7 +382,8 @@ textarea.input {
   flex-direction: column;
   gap: 8px;
   min-height: 4px;
-  padding: 0 2px 2px;
+  margin: -6px -8px 0;
+  padding: 6px 8px 8px;
   overflow-y: auto;
 }
 
@@ -404,33 +405,25 @@ textarea.input {
   color: var(--text-strong);
 }
 
-.add-card-form {
-  margin-top: 8px;
-}
-
-.add-card-input {
-  resize: none;
-}
-
 
 /* ===== Cartão ===== */
 .card {
+  flex-shrink: 0;
   overflow: hidden;
   background-color: var(--surface);
   border: 2px solid transparent;
   border-radius: 8px;
   box-shadow: var(--shadow);
   cursor: pointer;
-  transition: background-color 0.15s;
+  transition: background-color 0.15s, border-color 0.15s, box-shadow 0.2s;
 }
 
-.card:hover {
-  background-color: var(--surface-hover);
-}
-
+.card:hover,
 .card:focus-visible {
   outline: none;
+  background-color: var(--surface-hover);
   border-color: var(--primary);
+  box-shadow: 0 0 0 1px var(--primary), 0 0 10px rgba(87, 157, 255, 0.6);
 }
 
 .card.dragging {

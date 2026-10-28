@@ -42,6 +42,7 @@ const DUE_TITLES = {
 let board = currentUser ? loadBoard() : null;
 let draggingCard = null;
 let editingCardId = null;
+let newCardColumnId = null;
 let draftChecklist = [];
 
 
@@ -62,6 +63,8 @@ const cardForm = document.getElementById("card-form");
 const cardTitleInput = document.getElementById("card-title");
 const cardDescriptionInput = document.getElementById("card-description");
 const cardColumnName = document.getElementById("card-column-name");
+const cardSaveBtn = document.getElementById("card-save-btn");
+const cardDeleteBtn = document.getElementById("card-delete-btn");
 const labelPicker = document.getElementById("label-picker");
 const coverPicker = document.getElementById("cover-picker");
 const cardDueInput = document.getElementById("card-due");
@@ -89,9 +92,7 @@ function loadBoard() {
   // Completa os campos novos em boards salvos antes deles existirem
   data.background = data.background || "roxo";
   data.columns.forEach((column) => {
-    column.cards = column.cards.map((card) => ({
-      description: "", labels: [], dueDate: "", cover: "", checklist: [], ...card,
-    }));
+    column.cards = column.cards.map((card) => ({ ...emptyCard(), ...card }));
   });
 
   return data;
@@ -103,6 +104,10 @@ function saveBoard() {
 
 function newId() {
   return crypto.randomUUID();
+}
+
+function emptyCard() {
+  return { title: "", description: "", labels: [], dueDate: "", cover: "", checklist: [] };
 }
 
 function newChecklistItem(text, done = false) {
@@ -228,9 +233,6 @@ function createColumnElement(column) {
   const list = element.querySelector(".card-list");
   const deleteBtn = element.querySelector(".column-delete");
   const addBtn = element.querySelector(".add-card-btn");
-  const form = element.querySelector(".add-card-form");
-  const input = element.querySelector(".add-card-input");
-  const cancelBtn = element.querySelector(".add-card-cancel");
 
   element.dataset.id = column.id;
   titleInput.value = column.title;
@@ -255,29 +257,7 @@ function createColumnElement(column) {
   deleteBtn.addEventListener("click", () => deleteColumn(column.id));
 
   // Novo cartão
-  function showForm(visible) {
-    form.hidden = !visible;
-    addBtn.hidden = visible;
-    input.value = "";
-    if (visible) input.focus();
-  }
-
-  addBtn.addEventListener("click", () => showForm(true));
-  cancelBtn.addEventListener("click", () => showForm(false));
-
-  input.addEventListener("keydown", (event) => {
-    if (event.key === "Enter" && !event.shiftKey) {
-      event.preventDefault();
-      form.requestSubmit();
-    }
-    if (event.key === "Escape") showForm(false);
-  });
-
-  form.addEventListener("submit", (event) => {
-    event.preventDefault();
-    const title = input.value.trim();
-    if (title) addCard(column.id, title);
-  });
+  addBtn.addEventListener("click", () => openNewCardModal(column.id));
 
   // Receber cartão arrastado
   element.addEventListener("dragover", (event) => {
@@ -442,15 +422,10 @@ function deleteColumn(id) {
 
 // ===== Ações: cartões =====
 
-function addCard(columnId, title) {
-  findColumn(columnId).cards.push({
-    id: newId(), title: title, description: "", labels: [], dueDate: "", cover: "", checklist: [],
-  });
+function addCard(columnId, data) {
+  findColumn(columnId).cards.push({ id: newId(), ...data });
   saveBoard();
   render();
-
-  // Mantém o formulário aberto para adicionar outro em seguida
-  columnsEl.querySelector(`[data-id="${columnId}"] .add-card-btn`).click();
 }
 
 function updateCard(id, data) {
@@ -514,10 +489,22 @@ addColumnForm.addEventListener("submit", (event) => {
 function openCardModal(id) {
   const { column, card } = findCard(id);
   editingCardId = id;
+  showCardModal(card, column.title);
+}
+
+function openNewCardModal(columnId) {
+  newCardColumnId = columnId;
+  showCardModal(emptyCard(), findColumn(columnId).title);
+}
+
+function showCardModal(card, columnTitle) {
+  const isNew = newCardColumnId !== null;
+  cardSaveBtn.textContent = isNew ? "Criar cartão" : "Salvar";
+  cardDeleteBtn.hidden = isNew;
 
   cardTitleInput.value = card.title;
   cardDescriptionInput.value = card.description;
-  cardColumnName.textContent = column.title;
+  cardColumnName.textContent = columnTitle;
   cardDueInput.value = card.dueDate;
   selectCover(card.cover);
 
@@ -537,6 +524,7 @@ function closeCardModal() {
   document.activeElement.blur();
   cardModal.hidden = true;
   editingCardId = null;
+  newCardColumnId = null;
 }
 
 cardForm.addEventListener("submit", (event) => {
@@ -547,18 +535,24 @@ cardForm.addEventListener("submit", (event) => {
   // Item digitado e não adicionado também é salvo
   addChecklistItem();
 
-  updateCard(editingCardId, {
+  const data = {
     title: title,
     description: cardDescriptionInput.value.trim(),
     labels: [...labelPicker.querySelectorAll(".selected")].map((option) => option.dataset.id),
     dueDate: cardDueInput.value,
     cover: coverPicker.querySelector(".selected").dataset.id,
     checklist: draftChecklist,
-  });
+  };
+
+  if (newCardColumnId !== null) {
+    addCard(newCardColumnId, data);
+  } else {
+    updateCard(editingCardId, data);
+  }
   closeCardModal();
 });
 
-document.getElementById("card-delete-btn").addEventListener("click", () => {
+cardDeleteBtn.addEventListener("click", () => {
   if (!confirm("Excluir este cartão?")) return;
   deleteCard(editingCardId);
   closeCardModal();
