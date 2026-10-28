@@ -12,7 +12,12 @@
   <header class="topbar">
     <h1 class="logo">📋 TrelloZinho</h1>
 
-    <input class="search-input" id="search-input" type="search" placeholder="Buscar cartões...">
+    <input class="search-input" id="search-input" type="search" placeholder="Buscar cartões...  ( / )">
+
+    <div class="bg-menu">
+      <button class="btn btn-ghost" id="bg-btn" type="button" title="Trocar fundo">🎨 <span class="btn-text">Fundo</span></button>
+      <div class="bg-picker" id="bg-picker" hidden></div>
+    </div>
 
     <div class="user-menu">
       <span class="avatar" id="user-avatar"></span>
@@ -64,9 +69,16 @@
   <!-- Modelo de cartão -->
   <template id="card-template">
     <article class="card" draggable="true" tabindex="0">
-      <div class="card-labels"></div>
-      <p class="card-title"></p>
-      <div class="card-badges" title="Este cartão tem descrição">≡ Descrição</div>
+      <div class="card-cover"></div>
+      <div class="card-body">
+        <div class="card-labels"></div>
+        <p class="card-title"></p>
+        <div class="card-badges">
+          <span class="badge badge-due"></span>
+          <span class="badge badge-checklist"></span>
+          <span class="badge badge-desc" title="Este cartão tem descrição">≡</span>
+        </div>
+      </div>
     </article>
   </template>
 
@@ -81,8 +93,30 @@
       <h3 class="modal-section-title">Etiquetas</h3>
       <div class="label-picker" id="label-picker"></div>
 
+      <div class="modal-row">
+        <div>
+          <h3 class="modal-section-title">Capa</h3>
+          <div class="cover-picker" id="cover-picker"></div>
+        </div>
+        <div>
+          <h3 class="modal-section-title">Prazo</h3>
+          <input class="input" id="card-due" type="date">
+        </div>
+      </div>
+
       <h3 class="modal-section-title">Descrição</h3>
-      <textarea class="input" id="card-description" rows="5" placeholder="Adicione uma descrição mais detalhada..."></textarea>
+      <textarea class="input" id="card-description" rows="4" placeholder="Adicione uma descrição mais detalhada..."></textarea>
+
+      <h3 class="modal-section-title">Checklist</h3>
+      <div class="checklist-progress" id="checklist-progress">
+        <span class="progress-text" id="checklist-percent">0%</span>
+        <div class="progress"><div class="progress-bar" id="checklist-bar"></div></div>
+      </div>
+      <ul class="checklist" id="checklist"></ul>
+      <div class="checklist-add">
+        <input class="input" id="checklist-input" type="text" maxlength="100" placeholder="Adicionar um item">
+        <button class="btn btn-ghost" id="checklist-add-btn" type="button">Adicionar</button>
+      </div>
 
       <div class="modal-actions">
         <button class="btn btn-danger" id="card-delete-btn" type="button">Excluir cartão</button>
