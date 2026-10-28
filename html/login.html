@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TrelloZinho - Entrar</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body class="auth-page">
+
+  <main class="auth-container">
+    <h1 class="logo logo-large">📋 TrelloZinho</h1>
+    <p class="auth-subtitle">Organize seus estudos, trabalho e planos em um só lugar.</p>
+
+    <div class="auth-card">
+
+      <!-- Abas -->
+      <div class="auth-tabs">
+        <button class="auth-tab active" type="button" data-tab="login">Entrar</button>
+        <button class="auth-tab" type="button" data-tab="register">Criar conta</button>
+      </div>
+
+      <p class="auth-message" id="auth-message" hidden></p>
+
+      <!-- Entrar -->
+      <form class="auth-form" id="login-form">
+        <label class="field-label" for="login-email">E-mail</label>
+        <input class="input" id="login-email" name="email" type="email" required autocomplete="email">
+
+        <label class="field-label" for="login-password">Senha</label>
+        <input class="input" id="login-password" name="password" type="password" required autocomplete="current-password">
+
+        <button type="submit" class="btn btn-primary btn-block">Entrar</button>
+
+        <p class="auth-hint">Acesso de demonstração: <strong>admin@trellozinho.com</strong> / <strong>admin123</strong></p>
+      </form>
+
+      <!-- Cadastro -->
+      <form class="auth-form" id="register-form" hidden>
+        <label class="field-label" for="register-name">Nome</label>
+        <input class="input" id="register-name" name="name" type="text" required minlength="2" maxlength="60" autocomplete="name">
+
+        <label class="field-label" for="register-email">E-mail</label>
+        <input class="input" id="register-email" name="email" type="email" required autocomplete="email">
+
+        <label class="field-label" for="register-password">Senha</label>
+        <input class="input" id="register-password" name="password" type="password" required minlength="6" autocomplete="new-password" placeholder="Mínimo 6 caracteres">
+
+        <label class="field-label" for="register-confirm">Confirmar senha</label>
+        <input class="input" id="register-confirm" name="confirmPassword" type="password" required minlength="6" autocomplete="new-password">
+
+        <button type="submit" class="btn btn-primary btn-block">Criar conta</button>
+      </form>
+
+    </div>
+  </main>
+
+  <script src="../js/auth.js"></script>
+  <script src="../js/login.js"></script>
+</body>
+</html>

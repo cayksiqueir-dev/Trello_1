@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TrelloZinho</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body class="board-page">
+
+  <!-- Topo -->
+  <header class="topbar">
+    <h1 class="logo">📋 TrelloZinho</h1>
+
+    <input class="search-input" id="search-input" type="search" placeholder="Buscar cartões...  ( / )">
+
+    <div class="bg-menu">
+      <button class="btn btn-ghost" id="bg-btn" type="button" title="Trocar fundo">🎨 <span class="btn-text">Fundo</span></button>
+      <div class="bg-picker" id="bg-picker" hidden></div>
+    </div>
+
+    <div class="user-menu">
+      <span class="avatar" id="user-avatar"></span>
+      <span class="user-name" id="user-name"></span>
+      <button class="btn btn-ghost" id="logout-btn" type="button">Sair</button>
+    </div>
+  </header>
+
+  <!-- Board -->
+  <main class="board">
+    <div class="columns" id="columns"></div>
+
+    <div class="add-column">
+      <button class="add-column-btn" id="add-column-btn" type="button">+ Adicionar outra lista</button>
+
+      <form class="add-column-form" id="add-column-form" hidden>
+        <input class="input" id="add-column-input" type="text" placeholder="Nome da lista" maxlength="50">
+        <div class="form-actions">
+          <button type="submit" class="btn btn-primary">Adicionar lista</button>
+          <button type="button" class="btn btn-ghost" id="add-column-cancel">Cancelar</button>
+        </div>
+      </form>
+    </div>
+  </main>
+
+  <!-- Modelo de lista -->
+  <template id="column-template">
+    <section class="column">
+      <header class="column-header">
+        <input class="column-title" type="text" maxlength="50" aria-label="Nome da lista">
+        <span class="column-count">0</span>
+        <button class="icon-btn column-delete" type="button" title="Excluir lista">🗑</button>
+      </header>
+
+      <div class="card-list"></div>
+
+      <button class="add-card-btn" type="button">+ Adicionar um cartão</button>
+    </section>
+  </template>
+
+  <!-- Modelo de cartão -->
+  <template id="card-template">
+    <article class="card" draggable="true" tabindex="0">
+      <div class="card-cover"></div>
+      <div class="card-body">
+        <div class="card-labels"></div>
+        <p class="card-title"></p>
+        <div class="card-badges">
+          <span class="badge badge-due"></span>
+          <span class="badge badge-checklist"></span>
+          <span class="badge badge-desc" title="Este cartão tem descrição">≡</span>
+        </div>
+      </div>
+    </article>
+  </template>
+
+  <!-- Modal do cartão -->
+  <div class="modal-overlay" id="card-modal" hidden>
+    <form class="modal" id="card-form">
+      <button class="icon-btn modal-close" id="card-modal-close" type="button" title="Fechar">&times;</button>
+
+      <input class="modal-title-input" id="card-title" type="text" required maxlength="100" placeholder="Título do cartão" aria-label="Título do cartão">
+      <p class="modal-subtitle">na lista <strong id="card-column-name"></strong></p>
+
+      <h3 class="modal-section-title">Etiquetas</h3>
+      <div class="label-picker" id="label-picker"></div>
+
+      <div class="modal-row">
+        <div>
+          <h3 class="modal-section-title">Capa</h3>
+          <div class="cover-picker" id="cover-picker"></div>
+        </div>
+        <div>
+          <h3 class="modal-section-title">Prazo</h3>
+          <input class="input" id="card-due" type="date">
+        </div>
+      </div>
+
+      <h3 class="modal-section-title">Descrição</h3>
+      <textarea class="input" id="card-description" rows="4" placeholder="Adicione uma descrição mais detalhada..."></textarea>
+
+      <h3 class="modal-section-title">Checklist</h3>
+      <div class="checklist-progress" id="checklist-progress">
+        <span class="progress-text" id="checklist-percent">0%</span>
+        <div class="progress"><div class="progress-bar" id="checklist-bar"></div></div>
+      </div>
+      <ul class="checklist" id="checklist"></ul>
+      <div class="checklist-add">
+        <input class="input" id="checklist-input" type="text" maxlength="100" placeholder="Adicionar um item">
+        <button class="btn btn-ghost" id="checklist-add-btn" type="button">Adicionar</button>
+      </div>
+
+      <div class="modal-actions">
+        <button class="btn btn-danger" id="card-delete-btn" type="button">Excluir cartão</button>
+        <div class="form-actions">
+          <button class="btn btn-ghost" id="card-cancel-btn" type="button">Cancelar</button>
+          <button class="btn btn-primary" id="card-save-btn" type="submit">Salvar</button>
+        </div>
+      </div>
+    </form>
+  </div>
+
+  <script src="../js/auth.js"></script>
+  <script src="../js/board.js"></script>
+</body>
+</html>
